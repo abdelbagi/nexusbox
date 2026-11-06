@@ -1,0 +1,355 @@
+<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NexusBox · La Group research prototype</title>
+<style>
+:root{--primary:#000066;--text:#0F0F0F;--muted:#434445;--surface:#F4F4F4;--info:#E6F7FF;--line:#BFC1C3;--accent:#47BFFF;--white:#FFFFFF;--font:Montserrat,Arial,Helvetica,sans-serif;--font-ar:"Segoe UI",Tahoma,Arial,sans-serif;--body:16px;--gap:24px}*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--surface);color:var(--text);font:var(--body)/1.5 var(--font)}html[lang=ar] body,[lang=ar]{font-family:var(--font-ar)}header{background:var(--primary);color:var(--white);padding:20px 4vw;display:flex;justify-content:space-between;gap:var(--gap);align-items:center}header strong{font-size:25px}.head-end{display:flex;gap:16px;align-items:center}.notice{padding:8px 4vw;background:var(--info);color:var(--primary);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}nav{padding:18px 4vw;display:flex;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--white)}button{font:inherit;padding:10px 16px;min-height:44px;cursor:pointer;border:1px solid var(--primary);background:var(--white);color:var(--primary);border-radius:5px}button.primary,nav button[aria-selected=true]{background:var(--primary);color:var(--white)}button:disabled{opacity:.5;cursor:default}:focus-visible{outline:3px solid var(--primary);outline-offset:4px}header :focus-visible{outline-color:var(--white)}main{max-width:1180px;margin:auto;padding:25px 30px 45px}h1{font-size:28px;margin:0 0 8px;color:var(--primary)}h2{font-size:20px;margin:0 0 12px;color:var(--primary)}p{margin:8px 0 16px}.split{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:22px}.split>*{min-width:0}.panel{padding:22px;background:var(--white);border:1px solid var(--line);border-radius:8px}.tag{font-size:14px;color:var(--muted)}.source{border-inline-start:4px solid var(--accent);padding:12px 18px;background:var(--info);margin:12px 0}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0}label{display:block;margin:12px 0 5px}input,select{font:inherit;min-height:44px;max-width:100%;padding:8px;border:1px solid var(--muted);border-radius:3px;background:var(--white);color:var(--text)}input[type=number]{width:120px}.status{padding:12px;background:var(--info);border-inline-start:4px solid var(--primary);margin:14px 0}table{border-collapse:collapse;width:100%;background:var(--white)}th,td{padding:12px;text-align:start;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--primary);background:var(--info)}.big{font-size:30px;font-weight:700;color:var(--primary);font-variant-numeric:tabular-nums}.switches label{display:flex;gap:12px;align-items:center;min-height:44px;cursor:pointer}.switches input{width:20px;height:20px;min-height:20px}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}footer{padding:16px 4vw;font-size:14px;color:var(--muted)}.scroll{overflow-x:auto}.metric{padding:14px 0;border-bottom:1px solid var(--line)}.record{padding:12px;border:1px dashed var(--muted);margin:12px 0}#live{max-width:1120px;margin:0 auto;padding:0 30px;color:var(--primary)}#export-out{margin:12px 0 0;padding:12px;background:var(--surface);border:1px solid var(--line);font-size:13px;white-space:pre-wrap;word-break:break-word;max-height:260px;overflow:auto}@media(max-width:760px){.split{grid-template-columns:1fr}header{align-items:flex-start;flex-direction:column}.head-end{width:100%;justify-content:space-between}main{padding:22px 18px}#live{padding:0 18px}h1{font-size:24px}th,td{padding:8px}.panel{padding:16px}}@media(max-width:420px){th,td{padding:6px 4px;font-size:14px;overflow-wrap:anywhere}}#mod{position:fixed;right:12px;bottom:12px;z-index:10;width:min(440px,calc(100vw - 24px));max-height:calc(100vh - 24px);overflow:auto;padding:14px;background:#FFF8E1;border:2px solid #7A5C00;border-radius:8px;box-shadow:0 4px 18px rgba(0,0,0,.25);font:14px/1.4 Arial,Helvetica,sans-serif;text-align:left}#mod h2{font-size:16px;margin:0 0 8px;color:#7A5C00}#mod button{min-height:34px;padding:4px 10px;border-color:#7A5C00;color:#7A5C00}#mod button.primary{background:#7A5C00;color:#FFF}#mod button[aria-pressed=true]{background:#7A5C00;color:#FFF}#mod input,#mod select,#mod textarea{min-height:34px;padding:4px 6px;font:inherit}#mod textarea{width:100%;min-height:60px;border:1px solid var(--muted);border-radius:3px}#mod label{margin:0}#mod .row{margin:8px 0;gap:8px}#mod .count{display:grid;grid-template-columns:1fr auto 2.5em auto;gap:6px;align-items:center;margin:4px 0}#mod .count output{text-align:center;font-weight:700}#m-time{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;min-width:4em}#m-rows{font-size:13px}#m-rows th,#m-rows td{padding:4px 6px}#m-msg{color:#7A5C00;font-weight:700;min-height:1.4em;margin:6px 0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}header,.notice,nav,footer{padding-inline:max(30px,calc((100% - 1180px)/2 + 30px))}#live{max-width:1180px}
+@media(max-width:760px){header,.notice,nav,footer{padding-inline:16px}main{padding:18px 16px 36px}#live{padding:0 16px}header{display:grid;grid-template-columns:1fr auto;grid-template-areas:"title lang" "label label";gap:4px 12px;padding-block:12px;align-items:center}header>div:first-child{grid-area:title}.head-end{display:contents}.head-end>div{grid-area:label;font-size:14px;line-height:1.3;opacity:.9}.head-end>div br{display:none}.head-end>div small{margin-inline-start:6px}.head-end>div small::before{content:"· "}#lang{grid-area:lang}header strong{font-size:22px}.notice{font-size:14px;padding-block:6px}.notice button{padding:6px 12px}nav{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-block:10px}nav button{width:100%;padding:8px 10px;font-size:15px;line-height:1.25}}
+@media print{nav,button,.notice,#mod{display:none}.split{display:block}.panel{margin-bottom:15px}}
+</style></head><body>
+<header><div><strong>NexusBox</strong><div data-i18n="workspace"></div></div><div class="head-end"><div><span data-i18n="label"></span><br><small data-i18n="sprint"></small></div><button id="lang"></button></div></header>
+<div class="notice"><span data-i18n="notice"></span><button id="reset" data-i18n="reset"></button></div>
+<nav data-i18n-aria="navLabel" role="tablist"><button role="tab" id="tab-orders" aria-selected="true" aria-controls="orders" data-view="orders" data-i18n="tab1"></button><button role="tab" id="tab-demand" aria-selected="false" aria-controls="demand" data-view="demand" data-i18n="tab2"></button><button role="tab" id="tab-margin" aria-selected="false" aria-controls="margin" data-view="margin" data-i18n="tab3"></button><button role="tab" id="tab-controls" aria-selected="false" aria-controls="controls" data-view="controls" data-i18n="tab4"></button></nav>
+<p id="live" role="status" aria-live="polite"></p><main>
+
+<section id="orders" role="tabpanel" aria-labelledby="tab-orders"><h1 data-i18n="o.h1"></h1><p data-i18n="o.sub"></p><div class="split"><div class="panel"><h2 data-i18n="o.msgs"></h2>
+<div id="thread"></div><p class="tag" data-i18n="tr.all"></p>
+<label for="identity" data-i18n="o.identity"></label><select id="identity"><option value="pending" data-i18n="id.pending"></option><option value="same" data-i18n="id.same"></option><option value="different" data-i18n="id.different"></option></select>
+<label for="qty" data-i18n="o.qty"></label><input id="qty" type="number" value="" min="1" max="10" step="1">
+<div class="switches"><label><input id="confirmed" type="checkbox"><span data-i18n="o.confirmed"></span></label></div><p id="locked" class="tag" hidden><span data-i18n="o.locked"></span></p></div>
+<div class="panel"><h2 data-i18n="o.h2"></h2><div class="metric"><span data-i18n="o.item"></span> <strong id="sku"></strong> · <span data-i18n="o.unit"></span> <strong class="unit-price"></strong></div>
+<div class="metric"><span data-i18n="o.opening"></span> <strong id="opening"></strong> · <span data-i18n="o.exh"></span> <strong id="exh">1</strong> · <span data-i18n="o.bookedfor"></span> <strong id="bookedq">0</strong><br><span data-i18n="o.available"></span> <strong id="stock"></strong></div>
+<div class="metric"><span data-i18n="o.payment"></span> <strong id="paystatus"></strong><br><span class="tag" data-i18n="o.paytag"></span>
+<div class="row"><button id="link" data-i18n="o.link"></button></div>
+<div id="knet" class="record" hidden><span data-i18n="o.knet"></span> <strong id="knet-amount"></strong> <span data-i18n="o.knetref"></span><div class="row"><button id="match" data-i18n="o.match"></button></div></div></div>
+<div class="row"><button id="event" data-i18n="o.event"></button></div>
+<div id="order-status" class="status"></div><p id="total"></p>
+<div class="actions"><button id="book" class="primary" data-i18n="o.book"></button><button id="undo" disabled data-i18n="o.undo"></button></div>
+<p class="tag" data-i18n="o.note"></p></div></div></section>
+
+<section id="demand" role="tabpanel" aria-labelledby="tab-demand" hidden><h1 data-i18n="d.h1"></h1><p data-i18n="d.sub"></p>
+<div class="scroll"><table><thead><tr><th data-i18n="d.th1"></th><th data-i18n="d.th2"></th><th data-i18n="d.th3"></th><th data-i18n="d.th4"></th></tr></thead><tbody>
+<tr><td data-i18n="d.r1item"></td><td>3 (C02, C03, C04)</td><td data-kwd="54"></td><td data-i18n="d.r1next"></td></tr>
+<tr><td data-i18n="d.r2item"></td><td data-i18n="d.r2cust"></td><td data-i18n="d.unknown"></td><td data-i18n="d.r2next"></td></tr>
+<tr id="miss-row" hidden><td id="miss-item"></td><td id="miss-cust"></td><td data-i18n="d.unknown"></td><td data-i18n="d.r3next"></td></tr></tbody></table></div>
+<p class="tag" data-i18n="d.tag"></p>
+<div class="split"><div class="panel"><h2 data-i18n="d.h2"></h2><p id="supplier-text" data-i18n="d.supplierText"></p><button id="supplier" data-i18n="d.supplier"></button><div id="supplier-status" class="status"></div></div></div></section>
+
+<section id="margin" role="tabpanel" aria-labelledby="tab-margin" hidden><h1 data-i18n="m.h1"></h1><p data-i18n="m.sub"></p><div class="split"><div class="panel"><h2 data-i18n="m.h2a"></h2>
+<label for="cost" data-i18n="m.cost"></label><input id="cost" type="number" min="0.001" step="0.001" value="12">
+<label for="price" data-i18n="m.price"></label><input id="price" type="number" min="0.001" step="0.001" value="18">
+<label for="fee" data-i18n="m.fee"></label><input id="fee" type="number" min="0" max="99" step="0.1" value="2">
+<label for="target" data-i18n="m.target"></label><input id="target" type="number" min="0" max="99" step="0.1" value="35">
+<p class="tag" data-i18n="m.tag"></p></div>
+<div class="panel"><h2 data-i18n="m.h2b"></h2><div class="big" id="suggestion"></div><p id="calc"></p><div id="margin-status" class="status"></div>
+<p><span data-i18n="m.f1"></span><br><span data-i18n="m.f2"></span></p>
+<div class="actions"><button id="approve-price" class="primary" data-i18n="m.approve"></button><button id="reject-price" data-i18n="m.keep"></button></div><p id="price-status"></p></div></div></section>
+
+<section id="controls" role="tabpanel" aria-labelledby="tab-controls" hidden><h1 data-i18n="c.h1"></h1><p data-i18n="c.sub"></p><div class="split"><div class="panel"><h2 data-i18n="c.h2a"></h2>
+<div class="switches"><label><input id="draft-permission" type="checkbox" checked><span data-i18n="c.perm1"></span></label><label><input id="advice-permission" type="checkbox" checked><span data-i18n="c.perm2"></span></label></div>
+<div class="status" data-i18n="c.status"></div>
+<p data-i18n="c.p"></p>
+<div class="actions"><button id="export" data-i18n="c.export"></button></div>
+<p class="tag" data-i18n="c.tag"></p><pre id="export-out" hidden></pre></div>
+<div class="panel"><h2 data-i18n="c.h2b"></h2><ol id="audit"></ol><p class="tag" data-i18n="c.logtag"></p></div></div></section>
+</main><footer data-i18n="footer"></footer>
+<aside id="mod" hidden lang="en" dir="ltr" aria-label="Moderator panel">
+<h2>Moderator panel · Ctrl+Shift+0 hides it</h2>
+<div class="row"><label for="m-seller">Seller code</label><input id="m-seller" size="6" maxlength="6" placeholder="S01" autocomplete="off">
+<span>Set</span><button id="m-setA" aria-pressed="true">A</button><button id="m-setB" aria-pressed="false">B</button></div>
+<div class="row"><label for="m-method">Method</label><select id="m-method"><option value="NexusBox">NexusBox</option><option value="Usual">Usual way</option></select>
+<label for="m-task">Task</label><select id="m-task"><option>T1</option><option>T2</option><option>T3</option><option>T4</option><option>T5</option><option>T6</option></select>
+<button id="m-prep">Prepare</button></div>
+<div id="m-prep-hint" class="tag"></div>
+<div class="row"><span id="m-time">0:00</span><button id="m-timer" class="primary">Start</button><button id="m-treset">Reset timer</button></div>
+<div class="count"><span>Errors</span><button data-c="errors" data-d="-1" aria-label="Errors minus one">−</button><output id="c-errors">0</output><button data-c="errors" data-d="1" aria-label="Errors plus one">+</button></div>
+<div class="count"><span>Critical errors</span><button data-c="critical" data-d="-1" aria-label="Critical errors minus one">−</button><output id="c-critical">0</output><button data-c="critical" data-d="1" aria-label="Critical errors plus one">+</button></div>
+<div class="count"><span>Help given</span><button data-c="help" data-d="-1" aria-label="Help given minus one">−</button><output id="c-help">0</output><button data-c="help" data-d="1" aria-label="Help given plus one">+</button></div>
+<div class="count"><span>Missed requests</span><button data-c="missed" data-d="-1" aria-label="Missed requests minus one">−</button><output id="c-missed">0</output><button data-c="missed" data-d="1" aria-label="Missed requests plus one">+</button></div>
+<div class="tag">Seller pressed "Add to request list": <strong id="m-req">no</strong></div>
+<label for="m-notes">Notes (no names or phone numbers)</label><textarea id="m-notes"></textarea>
+<div class="row"><button id="m-save" class="primary">Save task row</button><button id="m-export">Export CSV</button><button id="m-clear">Clear all rows</button></div>
+<div id="m-msg" role="status"></div>
+<div class="scroll"><table id="m-rows"><thead><tr><th>Task</th><th>Method</th><th>Set</th><th>Sec</th><th>Err</th><th>Crit</th><th>Help</th><th>Miss</th><th></th></tr></thead><tbody></tbody></table></div>
+<p class="tag">Rows stay in this browser until you clear them. Reset demo does not clear them. Export before closing the laptop.</p>
+</aside>
+<script>
+// All screen text in English and Arabic. The Arabic needs a check by the team.
+const I18N={
+en:{
+  workspace:'Owner workspace',label:'La Group research prototype',sprint:'Sprint 7 · November 2026',langBtn:'العربية',
+  notice:'SYNTHETIC DEMO · Prewritten AI suggestions · Nothing is connected, sent or paid.',reset:'Reset demo',
+  navLabel:'Prototype views',tab1:'1 Orders and stock',tab2:'2 Unmet requests',tab3:'3 Margin review',tab4:'4 Owner controls',kwd:'KWD',
+  'o.h1':'Check and book a chat order','o.sub':'Suggested order from today’s chats.','o.msgs':'Customer messages',
+  'ch.wa':'WhatsApp','ch.ig':'Instagram','phone.ends':'profile phone ends {n}',
+  tr:'Translation: “{t}”','tr.all':'Translations are prewritten in this demo.',
+  'miss.add':'Add to request list','miss.added':'Added to the request list. No reply sent.',
+  'o.identity':'Same customer on both channels?','id.pending':'Needs review','id.same':'Same customer and order','id.different':'Different customer',
+  'o.qty':'Confirmed quantity','o.confirmed':'Customer confirmed this quantity',
+  'o.h2':'Suggested order {o}','o.item':'Item','o.unit':'Unit price','o.opening':'Opening stock','o.exh':'Exhibition sales','o.bookedfor':'Booked for {o}','o.available':'Available',
+  'o.payment':'Payment','o.paytag':'A screenshot does not show the money arrived. Match the K-Net record.','o.link':'Approve K-Net link to this customer',
+  'o.knet':'K-Net record:','o.knetref':'received at {time} · reference {ref}','o.match':'Match this payment to {o}','o.event':'Record another exhibition sale',
+  'o.book':'Approve booking','o.undo':'Undo booking','o.note':'Booking takes the stock once. A second approval cannot take it again.',
+  units:p=>p.n+' unit'+(p.n===1?'':'s'),
+  'pay.none':'K-Net link not sent','pay.link':'Link approved. In this demo nothing is sent.','pay.paid':'Matched to K-Net record {ref}',
+  total:'Order value {v}','total.none':'Enter the quantity',
+  'st.paused':'Drafting is paused in owner controls.','st.identity':'Hold: check whether this is the same customer.','st.qty':'Hold: enter a whole quantity of at least 1.',
+  'st.confirm':'Hold: the customer has not confirmed the quantity.','st.stock':'Blocked: not enough stock.','st.booked':'Booked once. Stock updated.',
+  'st.link':'Hold: approve the K-Net link to the customer.','st.match':'Hold: match the payment to the K-Net record.','st.ready':'Ready for owner approval.',
+  'st.separate':' The Instagram request is kept as a separate draft.',
+  'st.amount':'Blocked: the quantity does not match the approved K-Net link.','o.locked':'Quantity and customer are locked because the K-Net link is approved.',
+  'ev.held':'Blocked: this unit is held for {o}, which has an approved K-Net link.','ev.none':'Blocked: no stock left for another exhibition sale.',
+  'd.h1':'Requests for items out of stock','d.sub':'These requests show interest. No sale has happened yet. Check supplier cost and delivery time before reordering.',
+  'd.th1':'Requested item','d.th2':'Customers','d.th3':'Request value','d.th4':'Next step',
+  'd.r1item':'Black linen M','d.r1next':'Ask the supplier for cost and delivery time','d.r2item':'Gift vase small','d.r2cust':'1 (C05 sent a picture)','d.unknown':'Unknown','d.r2next':'Match the picture to an item',
+  'd.tag':'Request value = quoted price × number of customers who asked.','d.h2':'Draft to the supplier',
+  'd.supplierText':'“Please confirm availability, landed cost, minimum order and lead time for black linen, size M.”','d.supplier':'Approve supplier message',
+  'sup.draft':'Draft only. In this demo nothing is sent.','sup.paused':'Suggestions are paused in owner controls.','sup.approved':'Owner approved the message. In this demo nothing is sent.',
+  'm.h1':'A price suggestion with its calculation','m.sub':'Example figures in KWD. The owner enters and checks the costs.','m.h2a':'Inputs the owner checks',
+  'm.cost':'Landed cost per unit (KWD)','m.price':'Current selling price (KWD)','m.fee':'Payment fee (% of price)','m.target':'Target margin after cost and fee (%)',
+  'm.tag':'Landed cost includes shipping, customs and packaging. Fixed costs are not included. The fee is an example. Enter your own K-Net fee if you know it.',
+  'm.h2b':'Suggested price','m.f1':'Margin = (price × (1 − fee) − landed cost) ÷ price.','m.f2':'Suggested price = landed cost ÷ (1 − fee − target margin).',
+  'm.approve':'Approve price','m.keep':'Keep current price','m.paused':'Paused','m.check':'Check inputs',
+  'm.invalid':'Cost and price must be above zero. Fee and target margin together must be below 100%.','m.nosug':'No suggestion.',
+  'm.calc':'Exact price {x}, rounded up to 0.010 KWD. Margin at the current price: {m}%.','m.status':'Margin at the suggested price: {m}%. Needs owner approval.',
+  'price.waiting':'Waiting for the owner. No listing changes without approval.','price.approved':'Owner approved {v}. In this demo no listing changes.','price.kept':'Owner kept the current price.',
+  'c.h1':'What NexusBox may do without asking you','c.sub':'NexusBox may draft orders and prepare suggestions on its own.','c.h2a':'Permissions',
+  'c.perm1':'Create order drafts from chats','c.perm2':'Prepare stock and price suggestions',
+  'c.status':'Everything else needs your approval: stock bookings, messages to customers or suppliers, payment links, supplier orders, courier bookings and price changes.',
+  'c.p':'Unclear messages stay on hold for you to check. Stock is only right if you count it at the start and record every exhibition sale.',
+  'c.export':'Export demo records','c.tag':'Data stays in this page only. Refresh or reset clears it. Export shows the records below and saves them as a file. Do not enter real customer information.',
+  'c.h2b':'Log of this session','c.logtag':'A live version needs a permanent log, user log-ins and tested backups. This log covers this session only and is cleared by a reset.',
+  footer:'Student prototype for the IE University MDT capstone · La Group · All customers, messages, prices and quantities are synthetic.',
+  'log.loaded':'Demo loaded. Nothing sent.','log.link':'Owner approved K-Net link to {c} for {o}. In this demo nothing is sent.','log.match':'Owner matched K-Net payment {ref} to {o}.',
+  'log.exh':'Recorded one more exhibition sale.','log.book':'Owner approved booking {o} for {n} unit(s).','log.undo':'Owner undid booking {o}. Stock restored.',
+  'log.price':'Owner approved price {v}.','log.keep':'Owner kept the current price.','log.supplier':'Owner approved supplier message. Nothing sent.',
+  'log.drafts.on':'Owner turned order drafts on.','log.drafts.off':'Owner turned order drafts off.','log.advice.on':'Owner turned suggestions on.','log.advice.off':'Owner turned suggestions off.',
+  'log.reset':'Demo reset. Nothing sent.','log.export':'Owner exported demo records.',
+  'log.miss':'Owner added the request from {m} for {item} to the request list. No reply sent.','d.r3next':'Check if you can get this item'
+},
+ar:{
+  workspace:'مساحة صاحب المتجر',label:'نموذج بحثي من La Group',sprint:'المرحلة 7 · نوفمبر 2026',langBtn:'English',
+  notice:'عرض تجريبي ببيانات وهمية · اقتراحات ذكاء اصطناعي مكتوبة مسبقًا · لا شيء متصل أو مُرسل أو مدفوع.',reset:'إعادة ضبط العرض',
+  navLabel:'شاشات النموذج',tab1:'1 الطلبات والمخزون',tab2:'2 طلبات لمنتجات غير متوفرة',tab3:'3 مراجعة الهامش',tab4:'4 صلاحيات المالك',kwd:'د.ك',
+  'o.h1':'راجع طلب المحادثة واحجزه','o.sub':'طلب مقترح من محادثات اليوم.','o.msgs':'رسائل العميل',
+  'ch.wa':'واتساب','ch.ig':'إنستغرام','phone.ends':'رقم الحساب ينتهي بـ {n}',
+  tr:'الترجمة: «{t}»','tr.all':'الترجمات مكتوبة مسبقًا في هذا العرض.',
+  'miss.add':'أضف إلى قائمة الطلبات','miss.added':'تمت الإضافة إلى قائمة الطلبات. لم يُرسل أي رد.',
+  'o.identity':'هل هو نفس العميل على القناتين؟','id.pending':'يحتاج مراجعة','id.same':'نفس العميل ونفس الطلب','id.different':'عميل مختلف',
+  'o.qty':'الكمية المؤكدة','o.confirmed':'العميل أكد هذه الكمية',
+  'o.h2':'الطلب المقترح {o}','o.item':'الصنف','o.unit':'سعر الوحدة','o.opening':'المخزون الافتتاحي','o.exh':'مبيعات المعرض','o.bookedfor':'محجوز للطلب {o}','o.available':'المتوفر',
+  'o.payment':'الدفع','o.paytag':'صورة التحويل لا تثبت وصول المبلغ. طابق سجل كي نت.','o.link':'اعتماد رابط كي نت لهذا العميل',
+  'o.knet':'سجل كي نت:','o.knetref':'وصل الساعة {time} · المرجع {ref}','o.match':'طابق هذه الدفعة مع {o}','o.event':'تسجيل بيع آخر في المعرض',
+  'o.book':'اعتماد الحجز','o.undo':'إلغاء الحجز','o.note':'الحجز يخصم من المخزون مرة واحدة فقط. الاعتماد الثاني لا يخصم مرة أخرى.',
+  units:p=>p.n===0?'لا توجد وحدات':p.n===1?'وحدة واحدة':p.n===2?'وحدتان':p.n<=10?p.n+' وحدات':p.n+' وحدة',
+  'pay.none':'لم يُرسل رابط كي نت','pay.link':'تم اعتماد الرابط. في هذا العرض لا يُرسل شيء.','pay.paid':'تمت المطابقة مع سجل كي نت {ref}',
+  total:'قيمة الطلب {v}','total.none':'أدخل الكمية',
+  'st.paused':'إعداد المسودات متوقف في صلاحيات المالك.','st.identity':'انتظار: تحقق هل هذا نفس العميل.','st.qty':'انتظار: أدخل كمية بعدد صحيح لا يقل عن 1.',
+  'st.confirm':'انتظار: العميل لم يؤكد الكمية.','st.stock':'ممنوع: المخزون غير كافٍ.','st.booked':'تم الحجز مرة واحدة. تم تحديث المخزون.',
+  'st.link':'انتظار: اعتمد رابط كي نت للعميل.','st.match':'انتظار: طابق الدفعة مع سجل كي نت.','st.ready':'جاهز لاعتماد المالك.',
+  'st.separate':' طلب إنستغرام محفوظ كمسودة منفصلة.',
+  'st.amount':'ممنوع: الكمية لا تطابق رابط كي نت المعتمد.','o.locked':'الكمية والعميل مقفلان لأن رابط كي نت معتمد.',
+  'ev.held':'ممنوع: هذه الوحدة محجوزة للطلب {o} لأن له رابط كي نت معتمد.','ev.none':'ممنوع: لا يوجد مخزون لبيع آخر في المعرض.',
+  'd.h1':'طلبات لمنتجات غير متوفرة','d.sub':'هذه الطلبات تدل على اهتمام العملاء. لم يتم أي بيع بعد. تحقق من تكلفة المورد ومدة التوصيل قبل إعادة الطلب.',
+  'd.th1':'المنتج المطلوب','d.th2':'العملاء','d.th3':'قيمة الطلبات','d.th4':'الخطوة التالية',
+  'd.r1item':'لينن أسود مقاس M','d.r1next':'اسأل المورد عن التكلفة ومدة التوصيل','d.r2item':'مزهرية هدايا صغيرة','d.r2cust':'1 (أرسل C05 صورة)','d.unknown':'غير معروف','d.r2next':'طابق الصورة مع منتج',
+  'd.tag':'قيمة الطلبات = السعر المعروض × عدد العملاء الذين طلبوا.','d.h2':'مسودة رسالة إلى المورد',
+  'd.supplierText':'«يرجى تأكيد التوفر والتكلفة الواصلة والحد الأدنى للطلب ومدة التوريد للينن الأسود مقاس M.»','d.supplier':'اعتماد رسالة المورد',
+  'sup.draft':'مسودة فقط. في هذا العرض لا يُرسل شيء.','sup.paused':'الاقتراحات متوقفة في صلاحيات المالك.','sup.approved':'اعتمد المالك الرسالة. في هذا العرض لا يُرسل شيء.',
+  'm.h1':'اقتراح سعر مع طريقة حسابه','m.sub':'أرقام مثال بالدينار الكويتي. المالك يدخل التكاليف ويراجعها.','m.h2a':'مدخلات يراجعها المالك',
+  'm.cost':'التكلفة الواصلة للوحدة (د.ك)','m.price':'سعر البيع الحالي (د.ك)','m.fee':'رسوم الدفع (% من السعر)','m.target':'الهامش المستهدف بعد التكلفة والرسوم (%)',
+  'm.tag':'التكلفة الواصلة تشمل الشحن والجمارك والتغليف. التكاليف الثابتة غير مشمولة. الرسوم مثال فقط. أدخل رسوم كي نت الخاصة بك إذا كنت تعرفها.',
+  'm.h2b':'السعر المقترح','m.f1':'الهامش = (السعر × (1 − الرسوم) − التكلفة الواصلة) ÷ السعر.','m.f2':'السعر المقترح = التكلفة الواصلة ÷ (1 − الرسوم − الهامش المستهدف).',
+  'm.approve':'اعتماد السعر','m.keep':'إبقاء السعر الحالي','m.paused':'متوقف','m.check':'راجع المدخلات',
+  'm.invalid':'يجب أن تكون التكلفة والسعر أكبر من صفر، وأن يكون مجموع الرسوم والهامش المستهدف أقل من 100%.','m.nosug':'لا يوجد اقتراح.',
+  'm.calc':'السعر الدقيق {x}، مقرّب للأعلى إلى أقرب 0.010 د.ك. الهامش عند السعر الحالي: {m}%.','m.status':'الهامش عند السعر المقترح: {m}%. يحتاج اعتماد المالك.',
+  'price.waiting':'بانتظار المالك. لا يتغير أي سعر معروض دون اعتماد.','price.approved':'اعتمد المالك {v}. في هذا العرض لا يتغير أي سعر معروض.','price.kept':'أبقى المالك السعر الحالي.',
+  'c.h1':'ما يمكن أن يقوم به NexusBox دون أن يسألك','c.sub':'يمكن لـ NexusBox إعداد مسودات الطلبات وتجهيز الاقتراحات بنفسه.','c.h2a':'الصلاحيات',
+  'c.perm1':'إنشاء مسودات طلبات من المحادثات','c.perm2':'تجهيز اقتراحات المخزون والأسعار',
+  'c.status':'كل شيء آخر يحتاج اعتمادك: حجز المخزون، والرسائل إلى العملاء أو الموردين، وروابط الدفع، وطلبات الموردين، وحجز التوصيل، وتغيير الأسعار.',
+  'c.p':'الرسائل غير الواضحة تبقى معلّقة حتى تراجعها. المخزون يكون صحيحًا فقط إذا عددته في البداية وسجّلت كل بيع في المعرض.',
+  'c.export':'تصدير سجلات العرض','c.tag':'البيانات تبقى في هذه الصفحة فقط. التحديث أو إعادة الضبط يمسحها. التصدير يعرض السجلات بالأسفل ويحفظها في ملف. لا تُدخل بيانات عملاء حقيقية.',
+  'c.h2b':'سجل هذه الجلسة','c.logtag':'النسخة الفعلية تحتاج سجلًا دائمًا وتسجيل دخول للمستخدمين ونسخًا احتياطية مجرّبة. هذا السجل يغطي هذه الجلسة فقط ويُمسح عند إعادة الضبط.',
+  footer:'نموذج طلابي لمشروع التخرج في برنامج MDT بجامعة IE · La Group · جميع العملاء والرسائل والأسعار والكميات وهمية.',
+  'log.loaded':'تم تحميل العرض. لم يُرسل شيء.','log.link':'اعتمد المالك رابط كي نت للعميل {c} للطلب {o}. في هذا العرض لا يُرسل شيء.','log.match':'طابق المالك دفعة كي نت {ref} مع {o}.',
+  'log.exh':'تم تسجيل بيع إضافي في المعرض.','log.book':'اعتمد المالك حجز {o} بعدد {n}.','log.undo':'ألغى المالك حجز {o}. تمت إعادة المخزون.',
+  'log.price':'اعتمد المالك السعر {v}.','log.keep':'أبقى المالك السعر الحالي.','log.supplier':'اعتمد المالك رسالة المورد. لم يُرسل شيء.',
+  'log.drafts.on':'شغّل المالك مسودات الطلبات.','log.drafts.off':'أوقف المالك مسودات الطلبات.','log.advice.on':'شغّل المالك الاقتراحات.','log.advice.off':'أوقف المالك الاقتراحات.',
+  'log.reset':'تمت إعادة ضبط العرض. لم يُرسل شيء.','log.export':'صدّر المالك سجلات العرض.',
+  'log.miss':'أضاف المالك طلب {m} ({item}) إلى قائمة الطلبات. لم يُرسل أي رد.','d.r3next':'تحقق إن كان بإمكانك توفير هذا المنتج'
+}};
+
+// Two matched scenario sets for the paired tasks T1 and T2. Same structure, different customer and item.
+// All synthetic. Each set has one message from another customer asking for an item that is out of stock.
+const SETS={
+  A:{order:'NB-001',sku:'LIN-BEI-M',price:18,opening:2,exh:1,ref:'4471',knetTime:'17:20',
+    cust:{code:'C01',name:{en:'Noor K.',ar:'نور ك.'},phone:'2210',ig:'@noor.k.kw'},
+    miss:{code:'C06',ig:'@dana.style.kw',item:{en:'Beige linen S',ar:'لينن بيج مقاس S'}},
+    msgs:[
+      {from:'cust',ch:'wa',time:'17:02',lang:'ar',text:'أبي قطعة لينن بيج مقاس M. يمكن آخذ ثنتين، بأكد لك.',tr:'I want a beige linen piece, size M. I may take two. I will confirm.'},
+      {from:'cust',ch:'ig',time:'17:05',lang:'en',text:'Same beige linen M please.',tr:'نفس اللينن البيج مقاس M لو سمحت.'},
+      {from:'miss',ch:'ig',time:'17:06',lang:'en',text:'Do you have the beige linen in size S?',tr:'عندكم اللينن البيج مقاس S؟'},
+      {from:'cust',ch:'wa',time:'17:08',lang:'ar',text:'وحدة بس، شكرًا.',tr:'Just one, thanks.'}]},
+  // Set B price: to confirm. It reuses 18.000 KWD from Set A until the team gives a figure.
+  B:{order:'NB-002',sku:'LIN-OLV-L',price:18,priceNote:'to confirm',opening:2,exh:1,ref:'5238',knetTime:'11:40',
+    cust:{code:'C11',name:{en:'Fatma A.',ar:'فاطمة ع.'},phone:'4819',ig:'@fatma.a.kw'},
+    miss:{code:'C12',phone:'7730',item:{en:'Olive linen M',ar:'لينن زيتوني مقاس M'}},
+    msgs:[
+      {from:'cust',ch:'wa',time:'11:14',lang:'ar',text:'أبي طقم لينن زيتوني مقاس L. يمكن آخذ ثنتين، بأكد لك.',tr:'I want an olive linen set, size L. I may take two. I will confirm.'},
+      {from:'cust',ch:'ig',time:'11:18',lang:'en',text:'The olive linen L, same one please.',tr:'نفس اللينن الزيتوني مقاس L لو سمحت.'},
+      {from:'miss',ch:'wa',time:'11:19',lang:'ar',text:'عندكم اللينن الزيتوني مقاس M؟',tr:'Do you have the olive linen in size M?'},
+      {from:'cust',ch:'wa',time:'11:25',lang:'ar',text:'خلاص، وحدة بس. مشكورة.',tr:'OK, just one. Thank you.'}]}
+};
+let setId='A';const S=()=>SETS[setId];
+let lang='en';
+// {o} order, {c} customer, {ref} and {time} come from the current set.
+// {v} and {x} hold money as numbers, so they show in the current language. Objects hold {en, ar} text.
+function t(k,p={}){const s=I18N[lang][k]??I18N.en[k];p={o:S().order,c:S().cust.code,ref:S().ref,time:S().knetTime,...p};
+  return typeof s==='function'?s(p):s.replace(/\{(\w+)\}/g,(_,x)=>{const v=p[x];return (x==='v'||x==='x')&&typeof v==='number'?kwd(v):v&&typeof v==='object'?v[lang]:v})}
+const $=id=>document.getElementById(id);const fmt=x=>x.toFixed(3);const kwd=x=>fmt(x)+' '+t('kwd');
+// Statuses are kept as keys, so a language switch can redraw them.
+const fresh=()=>({logs:[],live:null,supplier:'sup.draft',price:{k:'price.waiting'},set:setId,exh:S().exh,bookedQty:0,booked:false,link:false,linkQty:0,paid:false,missAdded:false});
+let state=fresh();state.logs.push({k:'log.loaded'});
+function announce(k,p){state.live={k,p};$('live').textContent=t(k,p)}
+function renderLogs(){$('audit').replaceChildren(...state.logs.map(l=>{const li=document.createElement('li');li.textContent=t(l.k,l.p);return li}))}
+function audit(k,p){state.logs.push({k,p});renderLogs();announce(k,p)}
+function applyStatic(){
+  document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(e=>{const s=t(e.dataset.i18n);e.textContent=s;e.hidden=s===''});
+  document.querySelectorAll('[data-i18n-aria]').forEach(e=>e.setAttribute('aria-label',t(e.dataset.i18nAria)));
+  document.querySelectorAll('[data-kwd]').forEach(e=>e.textContent=kwd(Number(e.dataset.kwd)));
+  $('lang').textContent=t('langBtn');$('lang').lang=lang==='ar'?'en':'ar';
+  $('sku').textContent=S().sku;$('opening').textContent=S().opening;document.querySelectorAll('.unit-price').forEach(e=>e.textContent=kwd(S().price));
+  $('miss-item').textContent=S().miss.item[lang];$('miss-cust').textContent='1 ('+S().miss.code+')';
+}
+function el(tag,text,props){const e=Object.assign(document.createElement(tag),props);if(text!=null)e.textContent=text;return e}
+function renderThread(){
+  const s=S(),nodes=[];
+  s.msgs.forEach(m=>{
+    const who=m.from==='cust'?s.cust:s.miss,meta=[t('ch.'+m.ch)];
+    if(m.ch==='wa')meta.push(who.name?who.name[lang]:who.code,el('bdi','+965 •••• '+who.phone,{dir:'ltr'}));
+    else{meta.push(el('bdi',who.ig,{dir:'ltr'}));if(who.phone)meta.push(t('phone.ends',{n:who.phone}))}
+    meta.push(m.time);
+    const tag=el('div',null,{className:'tag'});meta.forEach((x,i)=>{if(i)tag.append(' · ');tag.append(x)});
+    nodes.push(tag,el('div',m.lang==='en'?'“'+m.text+'”':m.text,{className:'source',lang:m.lang,dir:m.lang==='ar'?'rtl':'ltr'}));
+    if(m.lang!==lang)nodes.push(el('p',t('tr',{t:m.tr}),{className:'tag'}));
+    if(m.from==='miss'){const row=el('div',null,{className:'row'}),b=el('button',t('miss.add'),{id:'miss-add',disabled:state.missAdded});
+      b.onclick=()=>{if(state.missAdded)return;state.missAdded=true;audit('log.miss',{m:s.miss.code,item:s.miss.item});renderThread();demand()};
+      row.append(b);if(state.missAdded)row.append(el('span',t('miss.added'),{className:'tag'}));nodes.push(row)}
+  });
+  $('thread').replaceChildren(...nodes);
+}
+function render(){applyStatic();renderThread();renderLogs();$('live').textContent=state.live?t(state.live.k,state.live.p):'';orders();margin();demand()}
+$('lang').onclick=()=>{lang=lang==='ar'?'en':'ar';render()};
+function view(v){document.querySelectorAll('[role=tabpanel]').forEach(e=>e.hidden=e.id!==v);document.querySelectorAll('[role=tab]').forEach(e=>e.setAttribute('aria-selected',e.dataset.view===v));}
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>view(b.dataset.view));
+document.querySelector('nav').addEventListener('keydown',e=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(e.key))return;e.preventDefault();const a=[...document.querySelectorAll('[role=tab]')],i=a.indexOf(document.activeElement),fwd=(e.key==='ArrowRight')!==(lang==='ar');let n=e.key==='Home'?0:e.key==='End'?a.length-1:(i+(fwd?1:-1)+a.length)%a.length;a[n].focus();view(a[n].dataset.view)});
+const available=()=>S().opening-state.exh-state.bookedQty;
+const drafts=()=>$('draft-permission').checked, advice=()=>$('advice-permission').checked;
+function orders(){
+  const q=Number($('qty').value), av=available();
+  $('exh').textContent=state.exh;$('bookedq').textContent=state.bookedQty;$('stock').textContent=t('units',{n:av});
+  $('paystatus').textContent=t(state.paid?'pay.paid':state.link?'pay.link':'pay.none');
+  // The K-Net record shows what the approved link asked for, so the paid amount is tied to the link quantity.
+  $('knet').hidden=!state.link;$('knet-amount').textContent=kwd(S().price*state.linkQty);$('match').disabled=state.paid||!drafts();
+  const shown=state.booked?state.bookedQty:state.link?state.linkQty:q;$('total').textContent=(Number.isFinite(shown)&&shown>0)?t('total',{v:S().price*shown}):t('total.none');
+  // After the link is approved the order is locked, so the quantity cannot drift from what the customer pays.
+  const locked=state.link||state.booked;['qty','confirmed','identity'].forEach(id=>$(id).disabled=locked);$('locked').hidden=!locked||state.booked;
+  $('undo').disabled=!state.booked;
+  const pre=!drafts()?'st.paused':$('identity').value==='pending'?'st.identity':!Number.isInteger(q)||q<1?'st.qty':!$('confirmed').checked?'st.confirm':(!state.booked&&q>av)?'st.stock':(state.link&&q!==state.linkQty)?'st.amount':'';
+  $('link').disabled=state.link||state.booked||pre!=='';
+  const k=state.booked?'st.booked':pre||(!state.link?'st.link':!state.paid?'st.match':'st.ready');
+  $('order-status').textContent=t(k)+(($('identity').value==='different'&&!state.booked)?t('st.separate'):'');$('book').disabled=state.booked||k!=='st.ready';
+}
+['identity','confirmed'].forEach(id=>$(id).onchange=orders);$('qty').onchange=()=>{$('confirmed').checked=false;orders()};
+$('link').onclick=()=>{orders();if($('link').disabled)return;state.link=true;state.linkQty=Number($('qty').value);audit('log.link');orders()};
+$('match').onclick=()=>{if(state.paid||!state.link||!drafts())return;state.paid=true;audit('log.match');orders()};
+$('event').onclick=()=>{const held=(state.link&&!state.booked)?state.linkQty:0;if(available()-held<1)return announce(held?'ev.held':'ev.none');state.exh++;audit('log.exh');orders()};
+$('book').onclick=()=>{orders();if($('book').disabled)return;state.booked=true;state.bookedQty=Number($('qty').value);audit('log.book',{n:state.bookedQty});orders()};
+$('undo').onclick=()=>{if(!state.booked)return;state.booked=false;state.bookedQty=0;audit('log.undo');orders()};
+let recommendation=null;
+function demand(){const on=advice();$('miss-row').hidden=!state.missAdded;$('supplier').disabled=!on;if(!on)state.supplier='sup.paused';else if(state.supplier==='sup.paused')state.supplier='sup.draft';$('supplier-status').textContent=t(state.supplier);$('supplier-text').hidden=!on;document.querySelectorAll('#demand td:nth-child(4)').forEach(td=>td.style.visibility=on?'':'hidden')}
+function margin(){const c=Number($('cost').value),p=Number($('price').value),f=Number($('fee').value)/100,m=Number($('target').value)/100;const valid=c>0&&p>0&&f>=0&&m>=0&&f<1&&m<1&&(f+m)<1;recommendation=valid?Math.ceil((c/(1-f-m))*100-1e-8)/100:null;const on=advice();$('approve-price').disabled=!valid||!on;$('reject-price').disabled=!on;
+  $('price-status').textContent=t(state.price.k,state.price.p);
+  if(!on){$('suggestion').textContent=t('m.paused');$('calc').textContent='';$('margin-status').textContent=t('sup.paused');return}
+  if(!valid){$('suggestion').textContent=t('m.check');$('calc').textContent=t('m.invalid');$('margin-status').textContent=t('m.nosug');return}
+  $('suggestion').textContent=kwd(recommendation);$('calc').textContent=t('m.calc',{x:c/(1-f-m),m:((1-f-c/p)*100).toFixed(1)});
+  $('margin-status').textContent=t('m.status',{m:((1-f-c/recommendation)*100).toFixed(1)});}
+['cost','price','fee','target'].forEach(id=>$(id).oninput=()=>{state.price={k:'price.waiting'};margin()});
+$('approve-price').onclick=()=>{if($('approve-price').disabled)return;const v=recommendation;state.price={k:'price.approved',p:{v}};audit('log.price',{v});margin()};
+$('reject-price').onclick=()=>{if($('reject-price').disabled)return;state.price={k:'price.kept'};audit('log.keep');margin()};
+$('supplier').onclick=()=>{if($('supplier').disabled)return;state.supplier='sup.approved';audit('log.supplier');demand()};
+$('draft-permission').onchange=()=>{audit(drafts()?'log.drafts.on':'log.drafts.off');orders()};
+$('advice-permission').onchange=()=>{audit(advice()?'log.advice.on':'log.advice.off');margin();demand()};
+function resetDemo(){state=fresh();$('qty').value='';$('identity').value='pending';$('confirmed').checked=false;$('draft-permission').checked=true;$('advice-permission').checked=true;['cost','price','fee','target'].forEach((id,i)=>$(id).value=[12,18,2,35][i]);$('export-out').hidden=true;$('export-out').textContent='';audit('log.reset');render();view('orders');scrollTo(0,0)}
+$('reset').onclick=resetDemo;
+// Moderator only: Ctrl+Shift+1 loads Set A, Ctrl+Shift+2 loads Set B (both reset the demo), Ctrl+Shift+0 shows or hides the panel.
+function switchSet(id){setId=id;resetDemo();modRender()}
+document.addEventListener('keydown',e=>{if(!e.ctrlKey||!e.shiftKey||!['Digit0','Digit1','Digit2'].includes(e.code))return;e.preventDefault();
+  if(e.code==='Digit0'){$('mod').hidden=!$('mod').hidden;if(!$('mod').hidden)$('m-seller').focus()}else switchSet(e.code==='Digit1'?'A':'B')});
+
+// Moderator panel. Stores seller codes only, never names. Rows are kept in this browser so a refresh does not lose them.
+const MOD_KEY='nexusbox-moderator',COUNTS=['errors','critical','help','missed'];
+const modFresh=()=>({seller:'',method:'NexusBox',task:'T1',secs:0,startedAt:null,counts:{errors:0,critical:0,help:0,missed:0},notes:'',rows:[]});
+let mod=modFresh();
+try{const saved=JSON.parse(localStorage.getItem(MOD_KEY));if(saved&&Array.isArray(saved.rows))mod=Object.assign(modFresh(),saved)}catch(e){}
+function modSave(){try{localStorage.setItem(MOD_KEY,JSON.stringify(mod))}catch(e){}}
+const elapsed=()=>mod.secs+(mod.startedAt?(Date.now()-mod.startedAt)/1000:0);
+const mmss=s=>{s=Math.floor(s);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+// What "Prepare" does for each task. T2 continues from T1, so it does not reset.
+const PREP={
+  T1:['Resets the demo with the current set and opens screen 1.',()=>{resetDemo()}],
+  T2:['Continues from T1. No reset. Opens screen 1.',()=>view('orders')],
+  T3:['Loads Set A from the start: 1 unit available, no link approved. Opens screen 1.',()=>switchSet('A')],
+  T4:['Opens screen 2. No reset.',()=>view('demand')],
+  T5:['Opens screen 3 with the starting figures (cost 12.000, price 18.000, fee 2%, target 35%).',()=>{['cost','price','fee','target'].forEach((id,i)=>$(id).value=[12,18,2,35][i]);state.price={k:'price.waiting'};margin();view('margin')}],
+  T6:['No change. The seller opens screen 4 when asked.',()=>{}]
+};
+function modMsg(s){$('m-msg').textContent=s}
+function modRender(){
+  $('m-seller').value=mod.seller;$('m-method').value=mod.method;$('m-task').value=mod.task;$('m-notes').value=mod.notes;
+  $('m-setA').setAttribute('aria-pressed',setId==='A');$('m-setB').setAttribute('aria-pressed',setId==='B');
+  $('m-prep-hint').textContent=PREP[mod.task][0];
+  $('m-time').textContent=mmss(elapsed());$('m-timer').textContent=mod.startedAt?'Stop':'Start';
+  COUNTS.forEach(c=>$('c-'+c).textContent=mod.counts[c]);
+  $('m-req').textContent=state.missAdded?'yes':'no';
+  $('m-rows').tBodies[0].replaceChildren(...mod.rows.map((r,i)=>{const tr=document.createElement('tr');
+    [r.task,r.method,r.set,r.seconds,r.errors,r.critical_errors,r.help_given,r.missed_requests].forEach(v=>tr.append(el('td',String(v))));
+    const td=el('td'),b=el('button','×',{title:'Delete this row'});b.setAttribute('aria-label','Delete row '+(i+1));
+    b.onclick=()=>{if(!confirm('Delete the '+r.task+' row?'))return;mod.rows.splice(i,1);modSave();modRender()};td.append(b);tr.append(td);return tr}));
+}
+setInterval(()=>{if(mod.startedAt&&!$('mod').hidden)$('m-time').textContent=mmss(elapsed())},500);
+// Keep the "request list" hint current while the panel is open.
+setInterval(()=>{if(!$('mod').hidden)$('m-req').textContent=state.missAdded?'yes':'no'},1000);
+$('m-seller').oninput=()=>{mod.seller=$('m-seller').value.trim().toUpperCase();modSave()};
+$('m-method').onchange=()=>{mod.method=$('m-method').value;modSave()};
+$('m-task').onchange=()=>{mod.task=$('m-task').value;modSave();modRender()};
+$('m-notes').oninput=()=>{mod.notes=$('m-notes').value;modSave()};
+$('m-setA').onclick=()=>switchSet('A');$('m-setB').onclick=()=>switchSet('B');
+$('m-prep').onclick=()=>{PREP[mod.task][1]();modMsg('Prepared '+mod.task+'.');modRender()};
+$('m-timer').onclick=()=>{if(mod.startedAt){mod.secs=elapsed();mod.startedAt=null}else mod.startedAt=Date.now();modSave();modRender()};
+$('m-treset').onclick=()=>{mod.secs=0;mod.startedAt=null;modSave();modRender()};
+document.querySelectorAll('#mod [data-c]').forEach(b=>b.onclick=()=>{const c=b.dataset.c;mod.counts[c]=Math.max(0,mod.counts[c]+Number(b.dataset.d));modSave();modRender()});
+$('m-save').onclick=()=>{
+  if(!/^[A-Z]{1,3}\d{1,3}$/.test(mod.seller))return modMsg('Enter a seller code like S01. No names.');
+  if(/\d{5,}/.test(mod.notes))return modMsg('Notes look like they hold a phone number. Remove it first.');
+  if(mod.startedAt){mod.secs=elapsed();mod.startedAt=null}
+  mod.rows.push({seller_code:mod.seller,set:setId,method:mod.method,task:mod.task,seconds:Math.round(mod.secs),
+    errors:mod.counts.errors,critical_errors:mod.counts.critical,help_given:mod.counts.help,missed_requests:mod.counts.missed,
+    notes:mod.notes.trim(),date:new Date().toISOString().slice(0,10)});
+  const done=mod.task,next=['T1','T2','T3','T4','T5','T6'][Math.min(5,Number(done.slice(1)))];
+  mod.secs=0;mod.counts={errors:0,critical:0,help:0,missed:0};mod.notes='';mod.task=next;
+  modSave();modRender();modMsg('Saved '+done+'. Next task: '+next+'.');
+};
+// CSV for Excel: UTF-8 with BOM so Arabic notes show correctly; fields starting with = + - @ get a leading ' so Excel does not run them.
+const CSV_COLS=['seller_code','set','method','task','seconds','errors','critical_errors','help_given','missed_requests','notes','date'];
+function csvCell(v){let s=String(v??'');if(/^[=+\-@]/.test(s))s="'"+s;return /[",\r\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+$('m-export').onclick=()=>{
+  if(!mod.rows.length)return modMsg('No rows to export yet.');
+  const csv='﻿'+[CSV_COLS.join(','),...mod.rows.map(r=>CSV_COLS.map(c=>csvCell(r[c])).join(','))].join('\r\n')+'\r\n';
+  const name='NexusBox_session_'+(mod.rows[0].seller_code||'seller')+'_'+new Date().toISOString().slice(0,10)+'.csv';
+  try{const a=document.createElement('a'),url=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);modMsg('Exported '+mod.rows.length+' rows to '+name+'.')}
+  catch(e){modMsg('Export failed. Copy the rows from the table instead.')}
+};
+$('m-clear').onclick=()=>{if(!confirm('Clear all saved rows, the timer and the seller code? Export first if you need them.'))return;mod=modFresh();modSave();modRender();modMsg('All rows cleared.')};
+$('export').onclick=()=>{audit('log.export');const {live,supplier,price,...rec}=state;const json=JSON.stringify({...rec,logs:state.logs.map(l=>t(l.k,l.p)),available:available(),permissions:{drafts:drafts(),suggestions:advice()}},null,2);$('export-out').textContent=json;$('export-out').hidden=false;try{const a=document.createElement('a'),url=URL.createObjectURL(new Blob([json],{type:'application/json'}));a.href=url;a.download='NexusBox_demo_records.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}catch(e){}};
+render();modRender();
+</script></body></html>
